@@ -1,0 +1,982 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeLink | Organ Donor Registration</title>
+<style>
+:root {
+  --green: #16794b;
+  --dark: #123b2b;
+  --light: #edf7f0;
+  --border: #dce8df;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #23332a;
+  background: #f7faf8;
+  line-height: 1.6;
+}
+header {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.brand { color: var(--green); font-size: 23px; font-weight: bold; }
+nav a { color: #30483a; text-decoration: none; margin-left: 18px; }
+.hero {
+  padding: 55px 8%;
+  background: var(--light);
+}
+.hero h1 { color: var(--dark); font-size: clamp(30px, 5vw, 45px); line-height: 1.2; }
+.hero p { max-width: 650px; }
+.button {
+  background: var(--green); color: white; border: 0;
+  padding: 11px 18px; border-radius: 6px;
+  cursor: pointer; text-decoration: none; display: inline-block;
+}
+main { max-width: 1100px; margin: auto; padding: 28px 18px; }
+section { margin-bottom: 30px; scroll-margin-top: 20px; }
+h2 { color: var(--dark); }
+.notice {
+  background: #fff7df; border: 1px solid #ead69c;
+  padding: 12px 15px; border-radius: 8px;
+}
+.grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 16px; }
+.card {
+  background: white; padding: 20px; border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.stat { font-size: 28px; color: var(--green); font-weight: bold; }
+label { display: block; margin-top: 12px; font-weight: 600; }
+input, select, textarea {
+  width: 100%; padding: 10px; margin-top: 5px;
+  border: 1px solid #bdcec2; border-radius: 5px; font: inherit;
+}
+textarea { min-height: 80px; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+.secondary { background: white; color: var(--green); border: 1px solid var(--green); }
+.table-wrap { overflow-x: auto; background: white; border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; min-width: 600px; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--light); }
+.small { font-size: 13px; color: #5c6e62; }
+footer { background: var(--dark); color: white; padding: 24px 8%; }
+footer p { margin: 5px 0; }
+
+/* LifeLink Modern Healthcare Dashboard */
+:root {
+  --primary: #16845b;
+  --primary-dark: #116644;
+  --primary-light: #e8f5ed;
+  --page-bg: #f5f8f6;
+  --card-bg: #ffffff;
+  --text-main: #1d3027;
+  --text-muted: #687a70;
+  --border-color: #e1e9e4;
+  --card-radius: 16px;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--text-main);
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header, nav {
+  background: var(--card-bg);
+}
+
+header {
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 12px rgba(20, 60, 40, 0.04);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+input, select, textarea {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--text-main);
+  max-width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #a8dec0;
+  border-color: var(--primary);
+}
+
+.card, .stat-card, .dashboard-card, section {
+  border-radius: var(--card-radius);
+}
+
+.card, .stat-card, .dashboard-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 5px 18px rgba(20, 60, 40, 0.05);
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  text-align: left;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+a {
+  color: var(--primary-dark);
+}
+
+@media (max-width: 700px) {
+  .card, .stat-card, .dashboard-card {
+    padding: 14px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* LifeLink: Professional Header and Hero */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 18px 6%;
+  background: #ffffff;
+  border-bottom: 1px solid #dce9e0;
+  box-shadow: 0 4px 18px rgba(22, 80, 50, 0.07);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  color: #14764f;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+nav a {
+  color: #34483c;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 9px 13px;
+  border-radius: 9px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover {
+  color: #116644;
+  background: #e8f5ed;
+}
+
+.hero {
+  margin: 28px auto;
+  padding: 65px 7%;
+  max-width: 1180px;
+  border-radius: 24px;
+  background: linear-gradient(125deg, #e6f6eb, #f7fbf8 65%, #d4efdf);
+  border: 1px solid #d8ecdf;
+  text-align: left;
+}
+
+.hero p:first-child {
+  color: #14764f;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+
+.hero h1 {
+  max-width: 720px;
+  margin: 18px 0;
+  color: #173c2b;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+}
+
+.hero p {
+  max-width: 680px;
+  color: #53675b;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 13px 21px;
+  border-radius: 10px;
+  background: #16845b;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 5px 12px rgba(22, 132, 91, 0.16);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.button:hover {
+  background: #116644;
+  transform: translateY(-2px);
+}
+
+main {
+  width: min(1180px, 92%);
+  margin: 0 auto 45px;
+}
+
+.notice {
+  margin: 20px 0 28px;
+  padding: 16px 20px;
+  background: #fff9e9;
+  border: 1px solid #f0dfae;
+  border-left: 5px solid #d5a52a;
+  border-radius: 12px;
+  color: #67521c;
+  line-height: 1.7;
+}
+
+@media (max-width: 650px) {
+  header {
+    padding: 15px 5%;
+  }
+
+  nav {
+    gap: 4px;
+  }
+
+  nav a {
+    padding: 8px;
+  }
+
+  .hero {
+    margin: 18px auto;
+    padding: 38px 7%;
+  }
+}
+
+/* LifeLink Dashboard Statistics and Records */
+section {
+  margin: 32px 0;
+  scroll-margin-top: 100px;
+}
+
+section h2 {
+  margin-bottom: 18px;
+  color: #173c2b;
+  font-size: 27px;
+  letter-spacing: -0.5px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e0ebe3;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 5px 18px rgba(20, 60, 40, 0.05);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 9px 24px rgba(20, 60, 40, 0.09);
+}
+
+.small {
+  color: #65796d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stat {
+  margin-top: 8px;
+  color: #16845b;
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+#records .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.button.secondary {
+  background: #edf5ef;
+  color: #166344;
+  border: 1px solid #d6e8dc;
+  box-shadow: none;
+}
+
+.button.secondary:hover {
+  background: #dcefe3;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 18px;
+  border: 1px solid #e0ebe3;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.table-wrap table {
+  min-width: 650px;
+}
+
+.table-wrap th {
+  padding: 14px;
+  white-space: nowrap;
+}
+
+.table-wrap td {
+  padding: 13px 14px;
+  color: #34483c;
+}
+
+.table-wrap tbody tr:hover {
+  background: #f5faf6;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 17px;
+  }
+
+  section h2 {
+    font-size: 23px;
+  }
+}
+
+/* LifeLink Registration Form Styling */
+#register {
+  padding-top: 10px;
+}
+
+#register form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid #e0ebe3;
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(20, 60, 40, 0.05);
+}
+
+#register form label {
+  display: block;
+  margin-bottom: 7px;
+  color: #34483c;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#register form input,
+#register form select,
+#register form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #d8e5dc;
+  border-radius: 10px;
+  padding: 11px 12px;
+  background: #fbfdfb;
+  color: #24382c;
+}
+
+#register form input:focus,
+#register form select:focus,
+#register form textarea:focus {
+  outline: 2px solid #b7e4c7;
+  border-color: #16845b;
+  background: #ffffff;
+}
+
+#register form button {
+  justify-self: start;
+}
+
+@media (max-width: 650px) {
+  #register form {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+}
+
+/* Fix registration form field alignment */
+#register .card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#register .card form label {
+  margin-top: 8px;
+}
+
+#register .card form input,
+#register .card form select,
+#register .card form textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#register .card form button {
+  align-self: flex-start;
+  margin-top: 12px;
+}
+
+/* LifeLink FAQ Styling */
+#faq {
+  margin-top: 36px;
+}
+
+#faq h2 {
+  color: #173c2b;
+  margin-bottom: 20px;
+}
+
+#faq .card {
+  margin-bottom: 14px;
+  padding: 20px 22px;
+  border: 1px solid #e0ebe3;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(20, 60, 40, 0.04);
+}
+
+#faq h3 {
+  color: #16845b;
+  font-size: 17px;
+  margin: 0 0 8px;
+}
+
+#faq p {
+  color: #5b6e62;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  #faq .card {
+    padding: 16px;
+  }
+}
+
+/* LifeLink Professional Footer */
+footer {
+  margin-top: 45px;
+  padding: 30px 6%;
+  background: #173c2b;
+  color: #ffffff;
+  text-align: center;
+  border-top: 4px solid #16845b;
+}
+
+footer strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+footer p {
+  margin: 0;
+  color: #d5e6dc;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* LifeLink Registration Feedback */
+#message {
+  margin-top: 16px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+#message:empty {
+  display: none;
+}
+
+#message:not(:empty) {
+  display: block;
+  margin-top: 18px;
+  padding: 15px 18px;
+  border-left: 4px solid #16845b;
+  border-radius: 10px;
+  background: #e8f5ed;
+  color: #116644;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+
+/* LifeLink Dashboard Heading */
+.dashboard-heading {
+  margin: 28px 0 4px;
+  color: #173c2b;
+  font-size: 24px;
+  font-weight: 750;
+}
+
+.dashboard-description {
+  margin: 0 0 18px;
+  color: #65796d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Donor Status Labels */
+.status-active,
+.status-inactive {
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-active {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.status-inactive {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">LifeLink</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#register">Register</a>
+    <a href="#records">Records</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <p><strong>ORGAN DONOR REGISTRATION — ACADEMIC PROTOTYPE</strong></p>
+  <h1>A small decision can inspire hope.</h1>
+  <p>Explore a simple digital concept for recording organ donation pledges and viewing registration information.</p>
+  <a class="button" href="#register">Explore Registration</a>
+</div>
+
+<main>
+  <div class="notice">
+    <strong>Demonstration only:</strong> This student project is not an official donor registry. Do not enter real personal or medical information. Use fictional test data only.
+  </div>
+
+  <section id="about">
+    <h2>About the Project</h2>
+   
+<p>LifeLink is a student-developed Organ Donor Registration System prototype that demonstrates how digital technology can support the organization of donor pledge records. It provides sample donor registration, record searching, registration status management, and basic statistics through a simple, user-friendly interface. This project is intended for academic demonstration and is not an official organ donor registry.</p>
+
+    <div class="grid">
+      <div class="card"><h3>Registration</h3><p>Enter fictional sample details in a structured form.</p></div>
+      <div class="card"><h3>Record Management</h3><p>Search and review demonstration records.</p></div>
+      <div class="card"><h3>Clear Information</h3><p>Read general information and project limitations.</p></div>
+    </div>
+    
+    <h3>Technologies Used</h3>
+    <div class="grid">
+      <div class="card">
+        <h3>HTML</h3>
+        <p>Structures the website content and registration form.</p>
+      </div>
+      <div class="card">
+        <h3>CSS</h3>
+        <p>Creates the responsive layout and healthcare-themed design.</p>
+      </div>
+      <div class="card">
+        <h3>JavaScript</h3>
+        <p>Handles registration, search, status changes, and dashboard updates.</p>
+      </div>
+      <div class="card">
+        <h3>Local Storage</h3>
+        <p>Stores fictional demonstration records in the browser.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="register">
+    <h2>Sample Registration</h2>
+    <div class="card">
+      <form id="donorForm">
+        <label for="name">Sample name</label>
+        <input id="name" required maxlength="50" placeholder="e.g. Demo Donor">
+
+        <div class="grid">
+          <div>
+            <label for="age">Age</label>
+            <input id="age" type="number" min="18" max="120" required>
+          </div>
+          <div>
+            <label for="gender">Gender</label>
+            <select id="gender" required>
+              <option value="">Select</option>
+              <option>Female</option><option>Male</option><option>Other</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+          <div>
+            <label for="blood">Sample blood group</label>
+            <select id="blood" required>
+              <option value="">Select</option>
+              <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+              <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+              <option>Unknown</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="phone">Fictional contact number</label>
+        <input id="phone" type="tel" placeholder="Use a made-up number only" required>
+
+        <label for="organs">Organs pledged (sample)</label>
+        <select id="organs" required>
+          <option value="">Select sample option</option>
+          <option>Kidneys</option><option>Liver</option><option>Heart</option>
+          <option>Lungs</option><option>Corneas</option><option>Multiple organs</option>
+          <option>Not specified</option>
+        </select>
+
+        <label for="address">Sample location</label>
+        <input id="address" maxlength="100" placeholder="e.g. Sample Town" required>
+
+        
+<div class="actions">
+  <button class="button" type="submit">Add Sample Record</button>
+  <button class="button secondary" type="reset">Clear Form</button>
+  <button class="button secondary" type="button" id="exportRecords">
+    Export Sample Records
+  </button>
+</div>
+</form>
+
+      </form>
+      <p id="message" role="status"></p>
+      <p class="small">This page stores sample entries in this browser only. It does not connect to the C program or a server.</p>
+    </div>
+  </section>
+
+  <section id="records">
+    <h2>Sample Records</h2>
+    <div class="card">
+      <label for="search">Search by sample name or record ID</label>
+      <input id="search" placeholder="Enter name or ID">
+      <div class="actions">
+        <button class="button secondary" id="clearSearch" type="button">Clear Search</button>
+        <button class="button secondary" id="clearRecords" type="button">Clear All Sample Records</button>
+      </div>
+    </div>
+    
+<h3 class="dashboard-heading">LifeLink Dashboard</h3>
+<p class="dashboard-description">
+  Monitor sample registrations and review donor record statuses.
+</p>
+
+    <div class="grid" style="margin:16px 0">
+      <div class="card"><div class="small">Total sample records</div><div class="stat" id="total">0</div></div>
+      <div class="card"><div class="small">Active sample records</div><div class="stat" id="active">0</div></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Blood group</th><th>Sample organs</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="recordRows"><tr><td colspan="7">No sample records yet.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>Information & FAQ</h2>
+    <div class="card">
+      <h3>Is this an official registration service?</h3>
+      <p>No. This is an academic demonstration and cannot register a real organ donor.</p>
+      <h3>Who determines eligibility?</h3>
+      <p>Eligibility and donation procedures must be discussed with authorized medical professionals and official donation services.</p>
+      <h3>Does this website connect to the C program?</h3>
+     
+<p>Yes. LifeLink supports file-based integration with the C Organ Donor Registration System. Sample donor records can be exported as a CSV file from the website and manually imported into the C program. Automatic real-time synchronization is not available.</p>
+
+      
+<h3>Can a registration be reactivated?</h3>
+<p>Yes. An inactive sample record can be reactivated using the Reactivate button.</p>
+
+<h3>Are sample records saved?</h3>
+<p>Sample records are stored in the browser's local storage and normally remain available after refreshing the page in the same browser. Clearing browser data may remove them.</p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>LifeLink — Organ Donor Registration System</strong>
+  <p>Student project prototype | For academic demonstration only</p>
+</footer>
+
+<script>
+const STORAGE_KEY = "lifelink_demo_records_v1";
+let records = [];
+
+try {
+  records = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  if (!Array.isArray(records)) records = [];
+} catch {
+  records = [];
+}
+
+const form = document.getElementById("donorForm");
+const message = document.getElementById("message");
+
+function saveRecords() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+    return true;
+  } catch {
+    message.textContent = "Browser storage is unavailable. Please check your browser settings.";
+    return false;
+  }
+}
+
+function renderRecords() {
+  const query = document.getElementById("search").value.trim().toLowerCase();
+  const visible = records.filter(r =>
+    String(r.id).includes(query) || r.name.toLowerCase().includes(query)
+  );
+  document.getElementById("total").textContent = records.length;
+  document.getElementById("active").textContent = records.filter(r => r.active).length;
+
+  const tbody = document.getElementById("recordRows");
+  tbody.replaceChildren();
+
+  if (!visible.length) {
+    const row = tbody.insertRow();
+    const cell = row.insertCell();
+    cell.colSpan = 7;
+    cell.textContent = "No matching sample records.";
+    return;
+  }
+
+  visible.forEach(r => {
+    const row = tbody.insertRow();
+    
+[r.id, r.name, r.age, r.blood, r.organs].forEach(value => {
+  const cell = row.insertCell();
+  cell.textContent = value;
+});
+
+const statusCell = row.insertCell();
+const statusLabel = document.createElement("span");
+statusLabel.className = r.active ? "status-active" : "status-inactive";
+statusLabel.textContent = r.active ? "Active" : "Inactive";
+statusCell.appendChild(statusLabel);
+
+    
+const actionCell = row.insertCell();
+const button = document.createElement("button");
+button.className = "button secondary";
+button.type = "button";
+
+button.textContent = r.active ? "Deactivate" : "Reactivate";
+
+button.addEventListener("click", () => {
+ if (!confirm("Are you sure you want to change this sample record's status?")) {
+  return;
+}
+
+r.active = !r.active;
+if (saveRecords()) renderRecords();
+});
+
+actionCell.appendChild(button);
+
+  });
+}
+
+form.addEventListener("submit", event => {
+  event.preventDefault();
+
+  const record = {
+    id: records.length ? Math.max(...records.map(r => Number(r.id) || 1000)) + 1 : 1001,
+    name: document.getElementById("name").value.trim(),
+    age: Number(document.getElementById("age").value),
+    gender: document.getElementById("gender").value,
+    blood: document.getElementById("blood").value,
+    phone: document.getElementById("phone").value.trim(),
+    organs: document.getElementById("organs").value,
+    address: document.getElementById("address").value.trim(),
+    active: true
+  };
+
+ 
+if (!record.name || !record.phone || !record.address) {
+  message.textContent = "Please complete all required fields.";
+  return;
+}
+
+if (!Number.isFinite(record.age) || record.age < 18 || record.age > 120) {
+  message.textContent = "Please enter a sample age between 18 and 120.";
+  return;
+}
+
+if (!/^[0-9]{10}$/.test(record.phone)) {
+  message.textContent = "Please enter a 10-digit sample phone number.";
+  return;
+}
+
+const duplicate = records.some(r =>
+  r.name.trim().toLowerCase() === record.name.toLowerCase() &&
+  r.phone === record.phone
+);
+
+if (duplicate) {
+  message.textContent = "A sample record with this name and phone number already exists.";
+  return;
+}
+
+
+  records.push(record);
+  if (!saveRecords()) {
+    records.pop();
+    return;
+  }
+
+  form.reset();
+  message.textContent = `Sample record added successfully! Your sample ID is ${record.id}.`;
+  renderRecords();
+});
+
+document.getElementById("search").addEventListener("input", renderRecords);
+document.getElementById("clearSearch").addEventListener("click", () => {
+  document.getElementById("search").value = "";
+  renderRecords();
+});
+document.getElementById("clearRecords").addEventListener("click", () => {
+  if (confirm("Delete all browser sample records? This cannot be undone.")) {
+    records = [];
+    if (saveRecords()) renderRecords();
+  }
+});
+
+
+form.addEventListener("reset", () => {
+  message.textContent = "";
+});
+
+// Export sample donor records as CSV
+document.getElementById("exportRecords").addEventListener("click", () => {
+  if (records.length === 0) {
+    alert("No sample records available to export.");
+    return;
+  }
+
+  const columns = [
+    "id", "name", "age", "gender",
+    "blood", "phone", "organs", "address", "active"
+  ];
+
+  const escapeCSV = value => {
+    const text = String(value ?? "");
+    return '"' + text.replace(/"/g, '""') + '"';
+  };
+
+  const csv = [
+    columns.join(","),
+    ...records.map(record =>
+      columns.map(column => escapeCSV(record[column])).join(",")
+    )
+  ].join("\r\n");
+
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "lifelink_sample_records.csv";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  URL.revokeObjectURL(url);
+});
+
+renderRecords();
+
+</script>
+</body>
+</html>
